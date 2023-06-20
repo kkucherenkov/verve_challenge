@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+networks:
+  backend:
+    name: backend
+    driver: bridge
