@@ -1,0 +1,6 @@
+# Server configurations
+server:
+  host: "localhost"
+  port: 1321
+
+fileName: "data/promotions.csv"
