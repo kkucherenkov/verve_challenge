@@ -1,13 +1,16 @@
 package storage
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/araddon/dateparse"
+	"github.com/redis/go-redis/v9"
 	"math"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
+	"verve_testcase/pkg/config"
 )
 
 type Item struct {
@@ -50,25 +53,38 @@ func ParseItem(s string) (Item, error) {
 }
 
 type Storage struct {
-	DB       map[string]Item
-	mapMutex sync.RWMutex
+	client *redis.Client
+	ctx    context.Context
 }
 
 func (s *Storage) AddItem(i Item) {
-	s.mapMutex.Lock()
-	s.DB[i.Id] = i
-	s.mapMutex.Unlock()
+	b, err := json.Marshal(i)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	item := string(b)
+	_, err = s.client.Set(s.ctx, i.Id, item, 0).Result()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
 
 func (s *Storage) Size() int {
-	return len(s.DB)
+	return int(s.client.DBSize(s.ctx).Val())
 }
 
 func (s *Storage) Get(id string) *Item {
-	s.mapMutex.RLock()
-	item, presence := s.DB[id]
-	s.mapMutex.RUnlock()
-	if !presence {
+	js, err := s.client.Get(s.ctx, id).Result()
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	var item Item
+	err = json.Unmarshal([]byte(js), &item)
+	if err != nil {
+		fmt.Println(err)
 		return nil
 	}
 
@@ -76,11 +92,21 @@ func (s *Storage) Get(id string) *Item {
 }
 
 func (s *Storage) Clean() {
-	s.mapMutex.Lock()
-	s.DB = make(map[string]Item)
-	s.mapMutex.Unlock()
+	_, err := s.client.FlushAll(s.ctx).Result()
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
-func CreateStorage() *Storage {
-	return &Storage{DB: make(map[string]Item)}
+func CreateStorage(cfg config.Config) (*Storage, error) {
+	client := redis.NewClient(&redis.Options{
+		Addr: cfg.Redis.Host + ":" + cfg.Redis.Port,
+	})
+
+	ctx := context.Background()
+	if err := client.Ping(ctx).Err(); err != nil {
+		return nil, err
+	}
+
+	return &Storage{client: client, ctx: ctx}, nil
 }

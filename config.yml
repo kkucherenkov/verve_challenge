@@ -2,5 +2,9 @@
 server:
   host: "0.0.0.0"
   port: 8080
-
+redis:
+  host: "redis"
+  port: 6379
+  password: ""
+  db: 0
 fileName: "data/promotions.csv"

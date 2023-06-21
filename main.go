@@ -16,10 +16,13 @@ func main() {
 	readFile(&cfg)
 	readEnv(&cfg)
 
-	store := storage.CreateStorage()
+	store, err := storage.CreateStorage(cfg)
+	if err != nil {
+		processError(err)
+	}
 	srv := service.CreateService(store)
 
-	err := srv.Reload(cfg.FileName)
+	err = srv.Reload(cfg.FileName)
 	if err != nil {
 		processError(err)
 	}

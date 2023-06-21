@@ -85,7 +85,7 @@ func process(f *os.File, s *storage.Storage) error {
 
 		if n == 0 {
 			if err != nil {
-				fmt.Println(err)
+				//fmt.Println(err)
 				break
 			}
 			if err == io.EOF {
