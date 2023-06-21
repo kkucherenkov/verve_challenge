@@ -10,11 +10,6 @@ services:
     restart: unless-stopped
     networks:
       - backend
-    deploy:
-      resources:
-        limits:
-          cpus: '0.2'
-          memory: 500M
 networks:
   backend:
     name: backend

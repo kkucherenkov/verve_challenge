@@ -84,11 +84,10 @@ func process(f *os.File, s *storage.Storage) error {
 		buf = buf[:n]
 
 		if n == 0 {
-			if err != nil {
-				fmt.Println(err)
-				break
-			}
 			if err == io.EOF {
+				break
+			} else if err != nil {
+				fmt.Println(err)
 				break
 			}
 			return err
