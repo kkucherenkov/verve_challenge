@@ -10,7 +10,7 @@ Advantages:
 ## How to use and run:
 1. clone the repository branch
 ```
-git clone --branch feat/redis https://github.com/kkucherenkov/verve_challenge.git
+git clone https://github.com/kkucherenkov/verve_challenge.git
 cd verve_challenge
 ```
 2. Run the services:
