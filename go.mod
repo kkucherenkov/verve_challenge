@@ -1,4 +1,4 @@
-module verve_testcase
+module verve_challenge
 
 go 1.20
 

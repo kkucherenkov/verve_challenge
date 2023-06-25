@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"verve_testcase/pkg/file_processor"
-	"verve_testcase/pkg/storage"
+	"verve_challenge/pkg/file_processor"
+	"verve_challenge/pkg/storage"
 )
 
 type reloadRequest struct {
