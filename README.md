@@ -1,7 +1,7 @@
 ## The "feat/redis" branch
 The "feat/redis" branch contains a solution that uses external storage, Redis in this case. There is an API service that provides HTTP API and has no state, so it allows horizontal scaling, but it also involves network communication overhead. This branch also contains a setup for a simple load balancer pattern via the Nginx server.
 
-How to use and run:
+## How to use and run:
 1. clone the repository branch
 ```
 git clone --branch feat/redis https://github.com/kkucherenkov/verve_challenge.git
