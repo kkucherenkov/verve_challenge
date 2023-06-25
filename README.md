@@ -11,7 +11,7 @@ In this solution I've used
 
 There are two docker-compose files: the load balancer version and the metrics version
 
-How to use and run:
+## How to use and run:
 1. clone the repository branch
 ```
 git clone --branch feat/ms-approach https://github.com/kkucherenkov/verve_challenge.git
