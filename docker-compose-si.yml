@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  storage:
+    build:
+      context: ./services/storage
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - backend
+  webapi:
+    build:
+      context: ./services/web_api
+      dockerfile: Dockerfile
+    ports:
+      - "1321:1321"
+    restart: unless-stopped
+    networks:
+      - backend
+networks:
+  backend:
+    name: backend

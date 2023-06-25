@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  storage:
+    build:
+      context: ./services/storage
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+    restart: unless-stopped
+    networks:
+      - backend
+  webapi:
+    build:
+      context: ./services/web_api
+      dockerfile: Dockerfile
+    ports:
+      - "1321:1321"
+    restart: unless-stopped
+    networks:
+      - backend
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - $PWD/cfg/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - backend
+  grafana:
+      image: grafana/grafana
+      ports:
+        - 3000:3000
+      volumes:
+        - $PWD/extra/grafana_db:/var/lib/grafana grafana/grafana
+      environment:
+        - GF_SECURITY_ADMIN_PASSWORD=password
+      networks:
+        - backend
+
+networks:
+  backend:
+    name: backend
+    driver: bridge

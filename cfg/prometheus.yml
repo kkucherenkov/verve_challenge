@@ -1,0 +1,19 @@
+global:
+  scrape_interval:     15s
+  external_labels:
+    monitor: 'verve-monitor'
+
+scrape_configs:
+  - job_name: 'storage'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['storage:8888']
+        labels:
+          group: 'verve_challenge'
+
+  - job_name: 'webapi'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['webapi:1321']
+        labels:
+          group: 'verve_challenge'

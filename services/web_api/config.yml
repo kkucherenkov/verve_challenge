@@ -1,7 +1,7 @@
 # Server configurations
 webApi:
   host: "0.0.0.0"
-  port: 8081
+  port: 1321
   clientAddr: "storage:8080"
 
 fileName: "data/promotions.csv"
