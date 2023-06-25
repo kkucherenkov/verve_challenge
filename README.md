@@ -49,3 +49,13 @@ Running 15s test @ http://webapi:1321/promotions/33ae574d-60d3-4d65-9deb-f25fd04
 Requests/sec:   1486.26
 Transfer/sec:    316.41KB
 ```
+
+Use `/promotions/reload` endpoint to reload DB
+```
+curl --request POST \
+  --url http://127.0.0.1:1321/promotions/reload \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"path": "data/promotions.csv"
+}'
+```
