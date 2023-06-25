@@ -6,9 +6,9 @@ import (
 	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v3"
 	"os"
-	"verve_testcase/pkg/config"
-	"verve_testcase/pkg/service"
-	"verve_testcase/pkg/storage"
+	"verve_challenge/pkg/config"
+	"verve_challenge/pkg/service"
+	"verve_challenge/pkg/storage"
 )
 
 func main() {

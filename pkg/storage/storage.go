@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"verve_testcase/pkg/config"
+	"verve_challenge/pkg/config"
 )
 
 type Item struct {

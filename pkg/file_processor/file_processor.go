@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 	"sync"
-	"verve_testcase/pkg/storage"
+	"verve_challenge/pkg/storage"
 )
 
 func ProcessFile(fileName string, s *storage.Storage) error {
